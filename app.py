@@ -90,6 +90,12 @@ def submit():
     datetimes = [(start, end) for start, end in zip(data_dict['start_datetime'], data_dict['end_datetime'])]
     return render_template('submit.html', data_dict=data_dict, datetimes=datetimes)
 
+
+@app.route('/preview', methods=['GET'])
+def preview():
+    app.logger.info(request.args)
+    return(request.args)
+
 @app.route('/shutdown', methods=['GET'])
 def shutdown():
     p = subprocess.run(['sudo', 'shutdown', '-h', 'now'], capture_output=True)

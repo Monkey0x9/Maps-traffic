@@ -28,6 +28,8 @@ def gen_image_path(name, screenshot_folder):
 
 
 def get_screenshots_now(locations: Dict, screenshot_folder: pathlib.Path, window_x: int = 1024, window_y: int = 768) -> None:
+    print('[MT INFO] get_sreenshot_now')
+    Path('/home/suunta/get_screenshot_now').touch()
     if sys.platform.startswith('linux'):
         Browser = ChromeBrowser
     elif sys.platform.startswith('win32'):
@@ -35,6 +37,7 @@ def get_screenshots_now(locations: Dict, screenshot_folder: pathlib.Path, window
     else:
         print('[ERROR]: OS is not linux or windows. Other operating systems are not supported.')
         return
+    print('Taking a screenshot!')
 
     with Browser(visual=False) as browser:
         browser.setup(window_x, window_y)
@@ -64,7 +67,8 @@ def import_from_flask(name: str, latitude: float, longitude: float, zoom: float,
     for start, end in zip(start_datetime, end_datetime):
         excute_times.update(generate_executetimes(start, end, interval))
 
-    print(excute_times)
+    #print(excute_times)
+    print('[MT INFO] imported tmes from flask')
     return name, url, list(excute_times)
 
 
@@ -100,6 +104,9 @@ def execute_from_config():
                 execute_times.append(time_object)
 
         planner.add_tasks(name, url, execute_times, base_path)
+        print('Added tasks:')
+        print(execute_times)
+    planner.run()
 
     print('[INFO]: Geen resterende taken meer, afsluiten')
     input('Druk op enter om dit venster te sluiten...')

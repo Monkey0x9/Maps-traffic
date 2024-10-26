@@ -3,18 +3,20 @@
 
 #time format: yyyy-mm-dd hh:mm
 locations:
-  example_brussel:
-    latitude: 50.8540222
-    longitude: 4.3418257
-    zoom: 14.5
-    time:
-      - now
+#  example_brussel:
+#    latitude: 50.8540222
+#    longitude: 4.3418257
+#    zoom: 14.5
+#    time:
+#      - now
   example2_random:
     latitude: 50
     longitude: 4
     zoom: 12
     time:
-      - 2020-10-08 20:00
+      - 2022-10-19 10:28
+      - 2022-10-19 10:29
+      - 2022-10-19 10:30
       - now
 
 

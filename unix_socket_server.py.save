@@ -53,7 +53,7 @@ def main():
                             elif order == 'DEBUG':
                                 scheduler.get_queue()
                                 for x in scheduler.queue:
-                                    print(x)
+                                    print(x.time)
                                 start()
                                 print('run done')
 

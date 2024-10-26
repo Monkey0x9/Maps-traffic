@@ -16,23 +16,32 @@ class ScreenshotBrowser:
         # self.config['window_x'], self.config['window_y']
         self.driver.set_window_size(x_size, y_size)
 
-        self.driver.get('https://www.google.be/404page')
+        self.driver.get('https://maps.google.be')
         self.driver.add_cookie(
             {'name': 'CONSENT',
              'value': 'YES+cb.20220111+BE.nl'})
+        self.driver.add_cookie(
+            {'name': 'SOCS',
+             'value': 'CAESNQgEEitib3FfaWRlbnRpdHlmcm9udGVuZHVpc2VydmVyXzIwMjQwNDI4LjA4X3AwGgJubCACGgYIgOnAsQY',})
+        self.driver.execute_script('document.querySelector(\'[aria-label^="Accept"]\').click()')
 
     def get_maps_page(self, url: str, image_path: pathlib.Path) -> None:
         """Gets the google maps page from url, saves it at image_path"""
 
+        print(f'Fetching url {url}')
         self.driver.get(url)
+        #self.driver.execute_script('document.querySelector(\'[aria-label^="Accept"]\').click()')
 
         # Remove omnibox
+        # print('remove omibox')
         js_string = 'var element = document.getElementById("omnibox-container"); element.remove();'
         self.driver.execute_script(js_string)
         # Remove username and icons
+        # print('remove username and icons')
         js_string = 'var element = document.getElementById("vasquette"); element.remove();'
         self.driver.execute_script(js_string)
         # Remove bottom scaling bar
+        # print('remove bottom bar')
         js_string = 'var element = document.getElementsByClassName("app-viewcard-strip"); element[0].remove();'
         self.driver.execute_script(js_string)
 
@@ -93,8 +102,13 @@ class ChromeBrowser(ScreenshotBrowser):
             options.add_argument('--headless')
 
             self.driver = webdriver.Chrome(
-                executable_path=chromedriver_path,
+                # executable_path=chromedriver_path,
                 options=options,
             )
 
         super().__init__(self.driver)
+
+if __name__ == '__main__':
+    d = ChromeBrowser()
+    d.setup(900,900)
+    d.get_maps_page('https://www.google.be/maps/@50.0,4.0,12.0z/data=!5m1!1e1', '/home/suunta/test.png')

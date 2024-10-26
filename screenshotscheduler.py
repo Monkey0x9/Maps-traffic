@@ -17,6 +17,8 @@ class ScreenshotScheduler:
         for execute_time in execute_times:
             if execute_time > datetime.datetime.now():
                 self._add_task({name: url}, execute_time, screenshot_folder)
+            else:
+                print(f'[WARNING]: Not add task, is in the future {execute_time}')
 
     def _add_task(self, locations: Dict, execute_time: datetime.datetime, save_path: Path):
         self.plan.enterabs(
@@ -30,16 +32,27 @@ class ScreenshotScheduler:
         """Check whether the scheduler is running"""
         return self._running
 
+    def _run(self):
+        print('[INFO]: Starting the scheduler!')
+        try:
+            self._running = True
+            self.plan.run()
+        except e:
+            print('[ERROR] plan.run had an exception')
+            print(e)
+        else:
+            print('[iNFO] Scheduler is done running')
+        finally:
+            self._running = False
+            print('[INFO] self._running is false now. Exit')
+
+
     def run(self):
-        if not self.plan.empty():
+        if not False:
             if not self._running:
-                print('[INFO]: Starting the scheduler!')
-                self._running = True
-                self.plan.run()
-                self._running = False
-                print('[INFO] Scheduler is done running')
+                self._run()
             else:
-                print('[WARNING] Scheduler already running!')
+                print('[WARNING] Alreay running the scheduler')
         else:
             print('[WARNING] No tasks planning, cannot run')
 

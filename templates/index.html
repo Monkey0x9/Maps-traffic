@@ -22,7 +22,12 @@
 
     <div class="mb-2">
         <label for="zoom" class="form-label">Zoomniveau:</label>
-        <input name="zoom" id="zoom" type="text" inputmode="numeric" required class="form-control">
+        <div class="input-group">
+            <input name="zoom" id="zoom" type="text" inputmode="numeric" required class="form-control">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info" onclick="alert('clicked')">Voorbeeld tonen</button>
+            </span>
+        </div>
     </div>
 
     <div class="mb-2">
@@ -45,6 +50,7 @@
     </div>
     <div class="d-flex justify-content-between">
         <div><button type="button" class="btn btn-success mt-3 p-2" onclick="addField()">Extra moment toevoegen</button></div>
+        <div><button type="button" class="btn btn-success mt-3 p-2" onclick="alert('clicked')">Voorbeeld tonen</button></div>
         <div><button type="submit" class="btn btn-primary mt-3 ml-auto p-2">Plan de screenshot taak</button></div>
     </div>
 
